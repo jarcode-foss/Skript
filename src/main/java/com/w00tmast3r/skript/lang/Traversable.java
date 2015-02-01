@@ -10,11 +10,31 @@ public interface Traversable {
     Scope getParent();
 
     /**
+     * Sets the containing scope of this item.
+     *
+     * @param scope the parent scope
+     */
+    void setParent(Scope scope);
+
+    /**
      * Gets the enclosing scope of this item.
      *
-     * @return the enclosing parent scope
+     * @return the enclosing scope
      */
-    Scope getEnclosingParent();
+    default EnclosingScope getEnclosingParent() {
+        Scope current = getParent();
+        while (!(current instanceof EnclosingScope) && current != null) {
+            current = current.getParent();
+        }
+        return (EnclosingScope) current;
+    }
+
+    /**
+     * Sets the enclosing scope of this item.
+     *
+     * @param scope the enclosing scope
+     */
+    void setEnclosingParent(Scope scope);
 
 
     /**

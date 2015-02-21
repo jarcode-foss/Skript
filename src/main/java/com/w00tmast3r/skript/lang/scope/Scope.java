@@ -1,4 +1,7 @@
-package com.w00tmast3r.skript.lang;
+package com.w00tmast3r.skript.lang.scope;
+
+import com.w00tmast3r.skript.lang.Context;
+import com.w00tmast3r.skript.lang.Traversable;
 
 import java.util.List;
 

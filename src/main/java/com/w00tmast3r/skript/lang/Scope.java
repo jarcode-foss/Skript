@@ -35,5 +35,4 @@ public interface Scope extends Traversable {
      * @return the next traversable
      */
     Traversable walkOutside(Context context);
-
 }

@@ -1,5 +1,8 @@
 package com.w00tmast3r.skript.lang;
 
+import com.w00tmast3r.skript.lang.scope.EnclosingScope;
+import com.w00tmast3r.skript.lang.scope.Scope;
+
 public interface Traversable {
 
     /**

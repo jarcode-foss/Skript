@@ -15,7 +15,8 @@ public enum ParseState {
      */
     PROGRESS,
     /**
-     * The current pattern has reached a potential {@link #SUCCESS} condition, but more characters
+     * The current pattern has reached a potential {@link #SUCCESS} condition, but more {@link #SUCCESS} conditions may
+     * still be reachable.
      */
     DIVERGE
 }

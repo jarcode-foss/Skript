@@ -1,5 +1,8 @@
 package com.w00tmast3r.skript.lang.parser;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
+
 import java.util.function.Function;
 
 /**
@@ -13,27 +16,31 @@ public interface KeyPattern extends Function<String, ParseState> {
      * @param group the character to parse
      * @return the result of the parse
      */
+    @NotNull
     ParseState apply(String group);
 
     /**
-     * Get whether or not this pattern has a predefined length.
+     * Get whether or not this pattern has predefined lengths.
      * <p>
      * Even if this method returns {@code true}, the pattern is not guaranteed to be optimized.
      *
-     * @return true if this pattern has a predictable length
-     * @see #getCachedLength
+     * @return true if this pattern has predictable lengths
+     * @see #getCachedLengths
      */
-    boolean hasCachedLength();
+    boolean hasCachedLengths();
 
     /**
-     * Gets the length of this pattern for parser optimization.
+     * Gets the possible lengths of this pattern for parser optimization.
      * <p>
      * Even if this method is called, the pattern is not guaranteed to be optimized. An optimized parser does not call
      * {@link #apply(String)} until the token is this length.
+     * <p>
+     * This
      *
-     * @return the expected length of this pattern
+     * @return the possible lengths of this expression
      */
-    int getCachedLength();
+    @NotNull
+    int[] getCachedLengths();
 
     /**
      * Gets whether or not the pattern may accept two whitespace characters in a row.

@@ -1,8 +1,7 @@
-package com.w00tmast3r.skript.lang.parser.standard;
+package com.w00tmast3r.skript.lang.parser;
 
 import com.w00tmast3r.skript.lang.SyntaxUnit;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -12,20 +11,24 @@ import java.util.function.Supplier;
  */
 public final class SyntaxMetadata<T extends SyntaxUnit> {
 
-    private final List<KeyPattern> keyPatterns;
+    private final Supplier<KeyPattern> patternSupplier;
     private final Supplier<T> unitConstructor;
 
-    public SyntaxMetadata(List<KeyPattern> keyPatterns, Supplier<T> unitConstructor) {
-        this.keyPatterns = keyPatterns;
+    public SyntaxMetadata(Supplier<KeyPattern> patternSupplier, Supplier<T> unitConstructor) {
+        this.patternSupplier = patternSupplier;
         this.unitConstructor = unitConstructor;
     }
 
-    public List<KeyPattern> getKeyPatterns() {
-        return keyPatterns;
+    public Supplier<KeyPattern> getPatternSupplier() {
+        return patternSupplier;
     }
 
     public Supplier<T> getUnitConstructor() {
         return unitConstructor;
+    }
+
+    public KeyPattern createPattern() {
+        return patternSupplier.get();
     }
 
     public T create() {

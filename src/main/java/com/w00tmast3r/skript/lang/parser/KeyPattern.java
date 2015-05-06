@@ -1,14 +1,12 @@
 package com.w00tmast3r.skript.lang.parser;
 
+import com.google.common.collect.ImmutableList;
 import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-
-import java.util.function.Function;
 
 /**
  * A pattern which handles
  */
-public interface KeyPattern extends Function<String, ParseState> {
+public interface KeyPattern {
 
     /**
      * Parses a character and returns the next pattern that should receive a character.
@@ -17,7 +15,7 @@ public interface KeyPattern extends Function<String, ParseState> {
      * @return the result of the parse
      */
     @NotNull
-    ParseState apply(String group);
+    ParseState parse(String group, int position);
 
     /**
      * Get whether or not this pattern has predefined lengths.
@@ -33,14 +31,11 @@ public interface KeyPattern extends Function<String, ParseState> {
      * Gets the possible lengths of this pattern for parser optimization.
      * <p>
      * Even if this method is called, the pattern is not guaranteed to be optimized. An optimized parser does not call
-     * {@link #apply(String)} until the token is this length.
-     * <p>
-     * This
+     * {@link #parse(String, int)} until the token is this length.
      *
      * @return the possible lengths of this expression
      */
-    @NotNull
-    int[] getCachedLengths();
+    ImmutableList<Integer> getCachedLengths();
 
     /**
      * Gets whether or not the pattern may accept two whitespace characters in a row.
@@ -48,4 +43,13 @@ public interface KeyPattern extends Function<String, ParseState> {
      * @return true if this pattern is whitespace insensitive
      */
     boolean mustCollapseWhitespace();
+
+    /**
+     * Gets whether or not the first position of this pattern parses expressions.
+     * <p>
+     * Some parsers will use this value to reorder parse order for optimisation.
+     *
+     * @return
+     */
+    boolean isExpression();
 }

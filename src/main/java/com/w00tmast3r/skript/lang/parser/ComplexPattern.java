@@ -1,5 +1,7 @@
 package com.w00tmast3r.skript.lang.parser;
 
+import com.google.common.collect.ImmutableList;
+
 import java.util.List;
 
 /**
@@ -21,8 +23,8 @@ public class ComplexPattern implements KeyPattern {
     }
 
     @Override
-    public int[] getCachedLengths() {
-        return new int[0];
+    public ImmutableList<Integer> getCachedLengths() {
+        return null;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class ComplexPattern implements KeyPattern {
     }
 
     @Override
-    public boolean isSuffix() {
+    public boolean isExpression() {
         return false;
     }
 }

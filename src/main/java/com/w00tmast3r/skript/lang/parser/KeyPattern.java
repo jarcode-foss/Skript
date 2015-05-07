@@ -4,12 +4,18 @@ import com.google.common.collect.ImmutableList;
 import com.sun.istack.internal.NotNull;
 
 /**
- * A pattern which handles
+ * A pattern which handles the parsing of individual strings.
  */
 public interface KeyPattern {
 
     /**
-     * Parses a character and returns the next pattern that should receive a character.
+     * Parses a string at a position in the pattern and returns the next result of that parsed character.
+     * <p>
+     * If the position returned is different than the position passed to the method, consequent parses will only contain
+     * strings found after the position was modified.
+     * <p>
+     * Position 0 should always be the start of the pattern. There is no specification for what the position should be
+     * at any given time, since it is just used for keeping track of position in a parse.
      *
      * @param group the character to parse
      * @return the result of the parse
@@ -49,7 +55,7 @@ public interface KeyPattern {
      * <p>
      * Some parsers will use this value to reorder parse order for optimisation.
      *
-     * @return
+     * @return whether or not the first position is an expression.
      */
     boolean isExpression();
 }
